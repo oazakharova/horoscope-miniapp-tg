@@ -144,3 +144,5 @@ root.render(
     <TelegramInit />
   </Provider>
 );
+
+export default TelegramInit;
