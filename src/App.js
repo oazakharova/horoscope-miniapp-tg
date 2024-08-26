@@ -22,6 +22,7 @@ import ZodiacBlock from './components/ZodiacBlock';
 
 const App = () => {
   const [selectedSign, setSelectedSign] = useState(null);
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
   const language = useSelector((state) => state.language.language);
 
   const zodiacSigns = [
@@ -137,6 +138,15 @@ const App = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Данные получены:', data);
+
+        localStorage.setItem(
+          'horoscopeData',
+          JSON.stringify({
+            sign: zodiac.sign,
+            horoscope: data.horoscope,
+          })
+        );
+
         setSelectedSign({ sign: zodiac.sign, horoscope: data.horoscope });
       }
     } catch (error) {
@@ -146,24 +156,42 @@ const App = () => {
 
   return (
     <div className="wrap">
-      {!selectedSign && <LanguageSwitcher />}
-      {selectedSign ? (
-        <ZodiacDetail
-          signDetail={selectedSign}
-          onClose={() => setSelectedSign(null)}
-        />
+      {isFirstVisit ? (
+        <>
+          <LanguageSwitcher />
+          <h2 className="welcomeInfo">
+            {language === 'ru'
+              ? 'Добро пожаловать в ежедневный гороскоп!'
+              : 'Welcome !'}
+          </h2>
+          <p className="welcomeInfo">
+            {language === 'ru'
+              ? 'Нажми на кнопку старт, чтобы увидеть список знаков зодиака'
+              : 'Press the start button to see the list of zodiac signs'}
+          </p>
+        </>
       ) : (
-        <div className="grid">
-          {zodiacSigns.map((zodiac) => (
-            <ZodiacBlock
-              key={zodiac.sign}
-              sign={zodiac.sign}
-              dateRange={zodiac.dateRange}
-              icon={zodiac.icon}
-              onClick={() => handleZodiacClick(zodiac)}
+        <>
+          {!selectedSign && <LanguageSwitcher />}
+          {selectedSign ? (
+            <ZodiacDetail
+              signDetail={selectedSign}
+              onClose={() => setSelectedSign(null)}
             />
-          ))}
-        </div>
+          ) : (
+            <div className="grid">
+              {zodiacSigns.map((zodiac) => (
+                <ZodiacBlock
+                  key={zodiac.sign}
+                  sign={zodiac.sign}
+                  dateRange={zodiac.dateRange}
+                  icon={zodiac.icon}
+                  onClick={() => handleZodiacClick(zodiac)}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
