@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/horoscope-miniapp-tg/static/css/main.846df076.css",
-    "main.js": "/horoscope-miniapp-tg/static/js/main.e473e498.js",
+    "main.js": "/horoscope-miniapp-tg/static/js/main.4ca7a55a.js",
     "static/media/sky-with-stars.jpg": "/horoscope-miniapp-tg/static/media/sky-with-stars.b29b120cba4d5231ed89.jpg",
     "index.html": "/horoscope-miniapp-tg/index.html",
     "main.846df076.css.map": "/horoscope-miniapp-tg/static/css/main.846df076.css.map",
-    "main.e473e498.js.map": "/horoscope-miniapp-tg/static/js/main.e473e498.js.map"
+    "main.4ca7a55a.js.map": "/horoscope-miniapp-tg/static/js/main.4ca7a55a.js.map"
   },
   "entrypoints": [
     "static/css/main.846df076.css",
-    "static/js/main.e473e498.js"
+    "static/js/main.4ca7a55a.js"
   ]
 }
