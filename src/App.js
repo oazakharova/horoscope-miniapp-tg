@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import {
   GiAries,
@@ -16,11 +16,10 @@ import {
 } from 'react-icons/gi';
 
 import './App.css';
+import { ShareButtonContext } from './context/ShareButtonContext';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import ZodiacDetail from './components/ZodiacDetail';
 import ZodiacBlock from './components/ZodiacBlock';
-
-const ShareButtonContext = createContext();
 
 const App = () => {
   const [selectedSign, setSelectedSign] = useState(null);
@@ -166,27 +165,29 @@ const App = () => {
   };
 
   return (
-    <div className="wrap">
-      {!selectedSign && <LanguageSwitcher />}
-      {selectedSign ? (
-        <ZodiacDetail
-          signDetail={selectedSign}
-          onClose={() => setSelectedSign(null)}
-        />
-      ) : (
-        <div className="grid">
-          {zodiacSigns.map((zodiac) => (
-            <ZodiacBlock
-              key={zodiac.sign}
-              sign={zodiac.sign}
-              dateRange={zodiac.dateRange}
-              icon={zodiac.icon}
-              onClick={() => handleZodiacClick(zodiac)}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    <ShareButtonContext.Provider value={{ setIsShareButtonEnabled }}>
+      <div className="wrap">
+        {!selectedSign && <LanguageSwitcher />}
+        {selectedSign ? (
+          <ZodiacDetail
+            signDetail={selectedSign}
+            onClose={() => setSelectedSign(null)}
+          />
+        ) : (
+          <div className="grid">
+            {zodiacSigns.map((zodiac) => (
+              <ZodiacBlock
+                key={zodiac.sign}
+                sign={zodiac.sign}
+                dateRange={zodiac.dateRange}
+                icon={zodiac.icon}
+                onClick={() => handleZodiacClick(zodiac)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </ShareButtonContext.Provider>
   );
 };
 

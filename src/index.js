@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import { store } from './redux/store';
+
 import TelegramInit from './components/TelegramInit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

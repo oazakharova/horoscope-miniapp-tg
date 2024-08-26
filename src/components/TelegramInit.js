@@ -1,5 +1,4 @@
-import React, { useEffect, useState, createContext } from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   initMiniApp,
@@ -8,13 +7,9 @@ import {
   parseInitData,
   initUtils,
 } from '@telegram-apps/sdk';
-import { Provider } from 'react-redux';
 
-import { store } from '../redux/store';
 import App from '../App';
-
-// Создаем контекст для управления состоянием кнопки "Поделиться"
-const ShareButtonContext = createContext();
+import { ShareButtonContext } from '../context/ShareButtonContext';
 
 const TelegramInit = () => {
   const [isShareButtonEnabled, setIsShareButtonEnabled] = useState(false);
@@ -137,12 +132,5 @@ const TelegramInit = () => {
     </ShareButtonContext.Provider>
   );
 };
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Provider store={store}>
-    <TelegramInit />
-  </Provider>
-);
 
 export default TelegramInit;
