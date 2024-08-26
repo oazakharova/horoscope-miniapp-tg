@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  Suspense,
+  lazy,
+} from 'react';
+import { useSelector } from 'react-redux';
 import {
   GiAries,
   GiTaurus,
@@ -20,18 +27,29 @@ import LanguageSwitcher from './components/LanguageSwitcher';
 import ZodiacDetail from './components/ZodiacDetail';
 import ZodiacBlock from './components/ZodiacBlock';
 
+const ShareButtonContext = createContext();
+
 const App = () => {
   const [selectedSign, setSelectedSign] = useState(null);
   const language = useSelector((state) => state.language.language);
-  const dispatch = useDispatch();
+  const { setIsShareButtonEnabled } = useContext(ShareButtonContext);
 
   useEffect(() => {
-    // Обновляем состояние выбранного знака в localStorage
-    const horoscopeData = localStorage.getItem('horoscopeData');
-    if (horoscopeData) {
-      setSelectedSign(JSON.parse(horoscopeData));
+    // Обновляем состояние кнопки при выборе знака
+    if (selectedSign) {
+      localStorage.setItem(
+        'horoscopeData',
+        JSON.stringify({
+          sign: selectedSign.sign,
+          horoscope: selectedSign.horoscope,
+        })
+      );
+      setIsShareButtonEnabled(true);
+    } else {
+      localStorage.removeItem('horoscopeData');
+      setIsShareButtonEnabled(false);
     }
-  }, []);
+  }, [selectedSign, setIsShareButtonEnabled]);
 
   const zodiacSigns = [
     {
@@ -147,14 +165,6 @@ const App = () => {
         const data = await response.json();
         console.log('Данные получены:', data);
 
-        localStorage.setItem(
-          'horoscopeData',
-          JSON.stringify({
-            sign: zodiac.sign,
-            horoscope: data.horoscope,
-          })
-        );
-
         setSelectedSign({ sign: zodiac.sign, horoscope: data.horoscope });
       }
     } catch (error) {
@@ -168,10 +178,7 @@ const App = () => {
       {selectedSign ? (
         <ZodiacDetail
           signDetail={selectedSign}
-          onClose={() => {
-            setSelectedSign(null);
-            localStorage.removeItem('horoscopeData');
-          }}
+          onClose={() => setSelectedSign(null)}
         />
       ) : (
         <div className="grid">
