@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  Suspense,
-  lazy,
-} from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import {
   GiAries,

@@ -10,7 +10,8 @@ import {
 } from '@telegram-apps/sdk';
 import { Provider } from 'react-redux';
 
-import { store } from './redux/store';
+import { store } from '../redux/store';
+import App from '../App';
 
 // Создаем контекст для управления состоянием кнопки "Поделиться"
 const ShareButtonContext = createContext();
