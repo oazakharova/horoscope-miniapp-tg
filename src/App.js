@@ -22,7 +22,6 @@ import ZodiacBlock from './components/ZodiacBlock';
 
 const App = () => {
   const [selectedSign, setSelectedSign] = useState(null);
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
   const language = useSelector((state) => state.language.language);
 
   const zodiacSigns = [
@@ -156,42 +155,24 @@ const App = () => {
 
   return (
     <div className="wrap">
-      {isFirstVisit ? (
-        <>
-          <LanguageSwitcher />
-          <h2 className="welcomeInfo">
-            {language === 'ru'
-              ? 'Добро пожаловать в ежедневный гороскоп!'
-              : 'Welcome !'}
-          </h2>
-          <p className="welcomeInfo">
-            {language === 'ru'
-              ? 'Нажми на кнопку старт, чтобы увидеть список знаков зодиака'
-              : 'Press the start button to see the list of zodiac signs'}
-          </p>
-        </>
+      {!selectedSign && <LanguageSwitcher />}
+      {selectedSign ? (
+        <ZodiacDetail
+          signDetail={selectedSign}
+          onClose={() => setSelectedSign(null)}
+        />
       ) : (
-        <>
-          {!selectedSign && <LanguageSwitcher />}
-          {selectedSign ? (
-            <ZodiacDetail
-              signDetail={selectedSign}
-              onClose={() => setSelectedSign(null)}
+        <div className="grid">
+          {zodiacSigns.map((zodiac) => (
+            <ZodiacBlock
+              key={zodiac.sign}
+              sign={zodiac.sign}
+              dateRange={zodiac.dateRange}
+              icon={zodiac.icon}
+              onClick={() => handleZodiacClick(zodiac)}
             />
-          ) : (
-            <div className="grid">
-              {zodiacSigns.map((zodiac) => (
-                <ZodiacBlock
-                  key={zodiac.sign}
-                  sign={zodiac.sign}
-                  dateRange={zodiac.dateRange}
-                  icon={zodiac.icon}
-                  onClick={() => handleZodiacClick(zodiac)}
-                />
-              ))}
-            </div>
-          )}
-        </>
+          ))}
+        </div>
       )}
     </div>
   );
