@@ -96,18 +96,18 @@ const TelegramInit = () => {
           const { horoscope } = horoscopeData;
           const botLink = 'https://t.me/MyHoroscope123123123Bot';
           const message = `
-            <b>${
+            *${
               language === 'ru'
                 ? 'Мой гороскоп на сегодня:'
                 : 'My daily horoscope:'
-            }
-            </b> ${horoscope}
-            <a href="${botLink}">${
-            language === 'ru'
-              ? 'Узнай свой гороскоп на сегодня в боте'
-              : 'Check your horoscope for today by the bot'
-          }</a>
-          `;
+            }*
+            ${horoscope}
+            [${
+              language === 'ru'
+                ? 'Узнай свой гороскоп на сегодня в боте'
+                : 'Check your horoscope for today by the bot'
+            }](${botLink})
+`;
 
           utils.shareURL(message);
           console.log('Окно выбора чата открыто для отправки сообщения.');
