@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  background-image: url('../public/images/sky-with-stars.jpg');
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
