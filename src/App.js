@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   GiAries,
   GiTaurus,
@@ -23,6 +23,15 @@ import ZodiacBlock from './components/ZodiacBlock';
 const App = () => {
   const [selectedSign, setSelectedSign] = useState(null);
   const language = useSelector((state) => state.language.language);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Обновляем состояние выбранного знака в localStorage
+    const horoscopeData = localStorage.getItem('horoscopeData');
+    if (horoscopeData) {
+      setSelectedSign(JSON.parse(horoscopeData));
+    }
+  }, []);
 
   const zodiacSigns = [
     {
@@ -159,7 +168,10 @@ const App = () => {
       {selectedSign ? (
         <ZodiacDetail
           signDetail={selectedSign}
-          onClose={() => setSelectedSign(null)}
+          onClose={() => {
+            setSelectedSign(null);
+            localStorage.removeItem('horoscopeData');
+          }}
         />
       ) : (
         <div className="grid">

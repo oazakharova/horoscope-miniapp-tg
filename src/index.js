@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { useSelector } from 'react-redux';
 import {
@@ -15,6 +15,7 @@ import App from './App';
 import { store } from './redux/store';
 
 const TelegramInit = () => {
+  const [isShareButtonEnabled, setIsShareButtonEnabled] = useState(false);
   const language = useSelector((state) => state.language.language);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ const TelegramInit = () => {
       backgroundColor: '#2e1a47',
       text: language === 'ru' ? 'Поделиться гороскопом' : 'Share Horoscope',
       isVisible: true,
-      isEnabled: true,
+      isEnabled: isShareButtonEnabled,
     });
     mainButton.show();
 
@@ -96,17 +97,17 @@ const TelegramInit = () => {
           const { horoscope } = horoscopeData;
           const botLink = 'https://t.me/MyHoroscope123123123Bot';
           const message = `
-            *${
+            ${
               language === 'ru'
                 ? 'Мой гороскоп на сегодня:'
                 : 'My daily horoscope:'
-            }*
+            }
             ${horoscope}
-            [${
+            ${
               language === 'ru'
                 ? 'Узнай свой гороскоп на сегодня в боте'
                 : 'Check your horoscope for today by the bot'
-            }](${botLink})
+            } (${botLink})
 `;
 
           utils.shareURL(message);
@@ -118,7 +119,17 @@ const TelegramInit = () => {
         console.error('Ошибка при открытии окна выбора чата:', error);
       }
     });
-  }, [language]);
+  }, [language, isShareButtonEnabled]);
+
+  useEffect(() => {
+    // Обновляем состояние кнопки при изменении выбранного гороскопа
+    const updateShareButtonState = () => {
+      const horoscopeData = localStorage.getItem('horoscopeData');
+      setIsShareButtonEnabled(!!horoscopeData);
+    };
+
+    updateShareButtonState();
+  }, []);
 
   return null;
 };
