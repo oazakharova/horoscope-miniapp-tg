@@ -15,16 +15,11 @@ const logToScreen = (message) => {
 };
 
 const getDefaultLanguage = () => {
-  const language = window.Telegram.WebApp.initDataUnsafe.language;
+  const languageCode = window.Telegram.WebApp.initDataUnsafe.user.language_code;
   logToScreen(
-    'Telegram WebApp initDataUnsafe: ' +
-      JSON.stringify(window.Telegram.WebApp.initDataUnsafe)
+    'Telegram WebApp initDataUnsafe language: ' + JSON.stringify(languageCode)
   );
-  logToScreen(
-    'Telegram WebApp initDataUnsafe language: ' +
-      JSON.stringify(window.Telegram.WebApp.initDataUnsafe.language)
-  );
-  return language === 'ru' ? 'ru' : 'en';
+  return languageCode === 'ru' ? 'ru' : 'en';
 };
 
 const initialState = {
