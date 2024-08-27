@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   initMiniApp,
   initMainButton,
@@ -10,9 +10,13 @@ import {
 
 import App from '../App';
 import { ShareButtonContext } from '../context/ShareButtonContext';
+import { setLanguage } from '../redux/slices/languageSlice';
 
 const TelegramInit = () => {
+  const dispatch = useDispatch();
+
   const [isShareButtonEnabled, setIsShareButtonEnabled] = useState(false);
+  const [selectedSign, setSelectedSign] = useState(null);
   const language = useSelector((state) => state.language.language);
 
   useEffect(() => {
@@ -21,6 +25,12 @@ const TelegramInit = () => {
         console.log('Инициализация окружения Telegram');
         const [miniApp] = initMiniApp();
         await miniApp.ready();
+
+        window.Telegram.WebApp.onEvent('settingsChanged', () => {
+          const newLanguage =
+            window.Telegram.WebApp.initDataUnsafe.user.language_code;
+          dispatch(setLanguage(newLanguage));
+        });
       } catch (error) {
         console.error('Ошибка при инициализации Telegram:', error);
 
@@ -117,6 +127,16 @@ const TelegramInit = () => {
       }
     });
 
+    // Инициализация кнопки "Назад"
+    const backButton = window.Telegram.WebApp.BackButton;
+    backButton.show(); // Отобразить кнопку "Назад"
+    backButton.onClick(() => {
+      if (selectedSign) {
+        setSelectedSign(null);
+        backButton.hide();
+      }
+    });
+
     // Обновляем состояние кнопки при изменении выбранного гороскопа
     const updateShareButtonState = () => {
       const horoscopeData = localStorage.getItem('horoscopeData');
@@ -124,7 +144,7 @@ const TelegramInit = () => {
     };
 
     updateShareButtonState();
-  }, [language, isShareButtonEnabled]);
+  }, [language, isShareButtonEnabled, selectedSign, dispatch]);
 
   return (
     <ShareButtonContext.Provider value={{ setIsShareButtonEnabled }}>
