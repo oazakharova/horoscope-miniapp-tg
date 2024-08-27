@@ -79,8 +79,7 @@ const TelegramInit = () => {
           language === 'ru'
             ? 'Узнай свой гороскоп на сегодня в боте'
             : 'Check your horoscope for today by the bot'
-        } ${botLink}
-`;
+        } ${botLink}`;
 
               utils.shareURL(message);
               console.log('Окно выбора чата открыто для отправки сообщения.');
@@ -95,12 +94,12 @@ const TelegramInit = () => {
         // Инициализация кнопки "Назад"
         const [backButton] = initBackButton();
         backButton.show();
-        backButton.on('click', () => {
-          if (selectedSign) {
-            setSelectedSign(null);
-            backButton.hide();
-          }
-        });
+        // backButton.on('click', () => {
+        //   if (selectedSign) {
+        //     setSelectedSign(null);
+        //     backButton.hide();
+        //   }
+        // });
       } catch (error) {
         console.error('Ошибка при инициализации Telegram:', error);
 
