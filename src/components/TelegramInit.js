@@ -7,7 +7,7 @@ import {
   mockTelegramEnv,
   parseInitData,
   initUtils,
-} from '@telegram-apps/sdk';
+} from '@telegram-apps/sdk-react';
 
 import App from '../App';
 import { ShareButtonContext } from '../context/ShareButtonContext';
@@ -93,10 +93,10 @@ const TelegramInit = () => {
 
         // Инициализация кнопки "Назад"
         const [backButton] = initBackButton();
-        backButton.setParams({
-          isVisible: true,
-        });
+        console.log('BackButton initialized.' + backButton.isVisible());
         backButton.show();
+        console.log('BackButton is shown.' + backButton.isVisible());
+
         // backButton.on('click', () => {
         //   if (selectedSign) {
         //     setSelectedSign(null);
