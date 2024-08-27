@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   initMiniApp,
   initMainButton,
+  initBackButton,
   mockTelegramEnv,
   parseInitData,
   initUtils,
@@ -18,6 +19,23 @@ const TelegramInit = () => {
   const [isShareButtonEnabled, setIsShareButtonEnabled] = useState(false);
   const [selectedSign, setSelectedSign] = useState(null);
   const language = useSelector((state) => state.language.language);
+
+  useEffect(() => {
+    // Обновляем состояние кнопки при выборе знака
+    if (selectedSign) {
+      localStorage.setItem(
+        'horoscopeData',
+        JSON.stringify({
+          sign: selectedSign.sign,
+          horoscope: selectedSign.horoscope,
+        })
+      );
+      setIsShareButtonEnabled(true);
+    } else {
+      localStorage.removeItem('horoscopeData');
+      setIsShareButtonEnabled(false);
+    }
+  }, [selectedSign, setIsShareButtonEnabled]);
 
   useEffect(() => {
     const initializeTelegramSDK = async () => {
@@ -128,9 +146,9 @@ const TelegramInit = () => {
     });
 
     // Инициализация кнопки "Назад"
-    const backButton = window.Telegram.WebApp.BackButton;
-    backButton.show(); // Отобразить кнопку "Назад"
-    backButton.onClick(() => {
+    const [backButton] = initBackButton();
+    backButton.show();
+    backButton.on('click', () => {
       if (selectedSign) {
         setSelectedSign(null);
         backButton.hide();
