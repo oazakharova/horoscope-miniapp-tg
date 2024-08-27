@@ -62,7 +62,7 @@ const TelegramInit = () => {
 
         const utils = initUtils();
 
-        mainButton.click(() => {
+        mainButton.on('click', () => {
           try {
             const horoscopeData = JSON.parse(
               localStorage.getItem('horoscopeData')
