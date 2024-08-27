@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const getDefaultLanguage = () => {
   const language = window.Telegram.WebApp.initDataUnsafe.language;
+  console.log(language);
   return language === 'ru' ? 'ru' : 'en';
 };
 
