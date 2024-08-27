@@ -93,6 +93,9 @@ const TelegramInit = () => {
 
         // Инициализация кнопки "Назад"
         const [backButton] = initBackButton();
+        backButton.setParams({
+          isVisible: true,
+        });
         backButton.show();
         // backButton.on('click', () => {
         //   if (selectedSign) {
