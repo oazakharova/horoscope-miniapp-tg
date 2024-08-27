@@ -52,12 +52,12 @@ const TelegramInit = () => {
         // Инициализация главной кнопки
         const [mainButton] = initMainButton();
         mainButton.setParams({
-          // backgroundColor: '#2e1a47',
+          backgroundColor: '#2e1a47',
           text: language === 'ru' ? 'Поделиться гороскопом' : 'Share Horoscope',
           isVisible: true,
           isEnabled: isShareButtonEnabled,
         });
-        mainButton.setBackgroundColor('#2e1a47');
+        //mainButton.setBackgroundColor('#2e1a47');
         mainButton.show();
 
         const utils = initUtils();
