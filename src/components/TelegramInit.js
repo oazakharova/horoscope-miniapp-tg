@@ -45,7 +45,7 @@ const TelegramInit = () => {
         await miniApp.ready();
 
         window.Telegram.WebApp.onEvent('settingsChanged', () => {
-          const newLanguage = parseInitData.user.languageCode;
+          const newLanguage = parseInitData.user.language_code;
           dispatch(setLanguage(newLanguage));
         });
 
