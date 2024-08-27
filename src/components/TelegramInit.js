@@ -104,7 +104,7 @@ const TelegramInit = () => {
               language === 'ru'
                 ? 'Узнай свой гороскоп на сегодня в боте'
                 : 'Check your horoscope for today by the bot'
-            } (${botLink})
+            } ${botLink}
 `;
 
           utils.shareURL(message);
