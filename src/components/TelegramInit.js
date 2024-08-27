@@ -7,7 +7,7 @@ import {
   mockTelegramEnv,
   parseInitData,
   initUtils,
-} from '@telegram-apps/sdk-react';
+} from '@telegram-apps/sdk';
 
 import App from '../App';
 import { ShareButtonContext } from '../context/ShareButtonContext';
