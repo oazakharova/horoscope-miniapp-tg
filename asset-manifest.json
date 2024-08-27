@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/horoscope-miniapp-tg/static/css/main.2e21410e.css",
-    "main.js": "/horoscope-miniapp-tg/static/js/main.d9e9e64e.js",
+    "main.js": "/horoscope-miniapp-tg/static/js/main.d05e384f.js",
     "index.html": "/horoscope-miniapp-tg/index.html",
     "main.2e21410e.css.map": "/horoscope-miniapp-tg/static/css/main.2e21410e.css.map",
-    "main.d9e9e64e.js.map": "/horoscope-miniapp-tg/static/js/main.d9e9e64e.js.map"
+    "main.d05e384f.js.map": "/horoscope-miniapp-tg/static/js/main.d05e384f.js.map"
   },
   "entrypoints": [
     "static/css/main.2e21410e.css",
-    "static/js/main.d9e9e64e.js"
+    "static/js/main.d05e384f.js"
   ]
 }
