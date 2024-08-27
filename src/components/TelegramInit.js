@@ -45,9 +45,60 @@ const TelegramInit = () => {
         await miniApp.ready();
 
         window.Telegram.WebApp.onEvent('settingsChanged', () => {
-          const newLanguage =
-            window.Telegram.WebApp.initDataUnsafe.user.language_code;
+          const newLanguage = parseInitData.user.languageCode;
           dispatch(setLanguage(newLanguage));
+        });
+
+        // Инициализация главной кнопки
+        const [mainButton] = initMainButton();
+        mainButton.setParams({
+          backgroundColor: '#2e1a47',
+          text: language === 'ru' ? 'Поделиться гороскопом' : 'Share Horoscope',
+          isVisible: true,
+          isEnabled: isShareButtonEnabled,
+        });
+        mainButton.show();
+
+        const utils = initUtils();
+
+        mainButton.on('click', () => {
+          try {
+            const horoscopeData = JSON.parse(
+              localStorage.getItem('horoscopeData')
+            );
+            if (horoscopeData) {
+              const { horoscope } = horoscopeData;
+              const botLink = 'https://t.me/MyHoroscope123123123Bot';
+              const message = `
+        ${
+          language === 'ru' ? 'Мой гороскоп на сегодня:' : 'My daily horoscope:'
+        }
+        ${horoscope}
+        ${
+          language === 'ru'
+            ? 'Узнай свой гороскоп на сегодня в боте'
+            : 'Check your horoscope for today by the bot'
+        } ${botLink}
+`;
+
+              utils.shareURL(message);
+              console.log('Окно выбора чата открыто для отправки сообщения.');
+            } else {
+              console.log('Гороскоп не выбран или не загружен.');
+            }
+          } catch (error) {
+            console.error('Ошибка при открытии окна выбора чата:', error);
+          }
+        });
+
+        // Инициализация кнопки "Назад"
+        const [backButton] = initBackButton();
+        backButton.show();
+        backButton.on('click', () => {
+          if (selectedSign) {
+            setSelectedSign(null);
+            backButton.hide();
+          }
         });
       } catch (error) {
         console.error('Ошибка при инициализации Telegram:', error);
@@ -103,59 +154,6 @@ const TelegramInit = () => {
 
     initializeTelegramSDK();
 
-    // Инициализация главной кнопки
-    const [mainButton] = initMainButton();
-    mainButton.setParams({
-      backgroundColor: '#2e1a47',
-      text: language === 'ru' ? 'Поделиться гороскопом' : 'Share Horoscope',
-      isVisible: true,
-      isEnabled: isShareButtonEnabled,
-    });
-    mainButton.show();
-
-    const utils = initUtils();
-
-    mainButton.on('click', () => {
-      try {
-        const horoscopeData = JSON.parse(localStorage.getItem('horoscopeData'));
-        if (horoscopeData) {
-          const { horoscope } = horoscopeData;
-          const botLink = 'https://t.me/MyHoroscope123123123Bot';
-          const message = `
-            ${
-              language === 'ru'
-                ? 'Мой гороскоп на сегодня:'
-                : 'My daily horoscope:'
-            }
-            ${horoscope}
-            ${
-              language === 'ru'
-                ? 'Узнай свой гороскоп на сегодня в боте'
-                : 'Check your horoscope for today by the bot'
-            } ${botLink}
-`;
-
-          utils.shareURL(message);
-          console.log('Окно выбора чата открыто для отправки сообщения.');
-        } else {
-          console.log('Гороскоп не выбран или не загружен.');
-        }
-      } catch (error) {
-        console.error('Ошибка при открытии окна выбора чата:', error);
-      }
-    });
-
-    // Инициализация кнопки "Назад"
-    const [backButton] = initBackButton();
-    backButton.show();
-    backButton.on('click', () => {
-      if (selectedSign) {
-        setSelectedSign(null);
-        backButton.hide();
-      }
-    });
-
-    // Обновляем состояние кнопки при изменении выбранного гороскопа
     const updateShareButtonState = () => {
       const horoscopeData = localStorage.getItem('horoscopeData');
       setIsShareButtonEnabled(!!horoscopeData);
