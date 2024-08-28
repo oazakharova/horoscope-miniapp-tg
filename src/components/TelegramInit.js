@@ -44,11 +44,14 @@ const TelegramInit = () => {
         console.log('Инициализация окружения Telegram');
         const [miniApp] = initMiniApp();
         await miniApp.ready();
+        console.log('language in state before the initialization: ', language);
 
         const initData = initInitData();
         console.log('initData', initData);
         const newLanguage = initData.user.languageCode;
+        console.log('newLanguage: ', newLanguage);
         dispatch(setLanguage(newLanguage));
+        console.log('language in state after the initialization: ', language);
 
         // Инициализация главной кнопки
         const [mainButton] = initMainButton();
