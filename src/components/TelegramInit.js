@@ -45,7 +45,8 @@ const TelegramInit = () => {
         const [miniApp] = initMiniApp();
         await miniApp.ready();
 
-        const initData = initInitData;
+        const initData = initInitData();
+        console.log('initData', initData);
         const newLanguage = initData.user.languageCode;
         dispatch(setLanguage(newLanguage));
 
