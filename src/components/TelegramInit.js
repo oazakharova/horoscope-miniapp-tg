@@ -6,6 +6,7 @@ import {
   initBackButton,
   mockTelegramEnv,
   parseInitData,
+  initInitData,
   initUtils,
 } from '@telegram-apps/sdk';
 
@@ -43,13 +44,10 @@ const TelegramInit = () => {
         console.log('Инициализация окружения Telegram');
         const [miniApp] = initMiniApp();
         await miniApp.ready();
-        console.log('miniApp: ', miniApp);
-        console.log('language: ', parseInitData);
 
-        // window.Telegram.WebApp.onEvent('settingsChanged', () => {
-        const newLanguage = parseInitData.user.languageCode;
+        const initData = initInitData;
+        const newLanguage = initData.user.languageCode;
         dispatch(setLanguage(newLanguage));
-        // });
 
         // Инициализация главной кнопки
         const [mainButton] = initMainButton();
