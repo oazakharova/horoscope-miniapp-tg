@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import {
   GiAries,
@@ -21,8 +21,7 @@ import LanguageSwitcher from './components/LanguageSwitcher';
 import ZodiacDetail from './components/ZodiacDetail';
 import ZodiacBlock from './components/ZodiacBlock';
 
-const App = () => {
-  const [selectedSign, setSelectedSign] = useState(null);
+const App = ({ selectedSign, setSelectedSign }) => {
   const language = useSelector((state) => state.language.language);
   const { setIsShareButtonEnabled } = useContext(ShareButtonContext);
 

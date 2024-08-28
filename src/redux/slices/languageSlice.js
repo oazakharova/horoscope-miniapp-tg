@@ -1,19 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const logToScreen = (message) => {
-  const logElement = document.createElement('div');
-  logElement.style.position = 'absolute';
-  logElement.style.top = '0';
-  logElement.style.left = '0';
-  logElement.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-  logElement.style.color = '#fff';
-  logElement.style.padding = '5px';
-  logElement.style.zIndex = '9999';
-  logElement.innerText = message;
-
-  document.body.appendChild(logElement);
-};
-
 const getDefaultLanguage = () => {
   if (
     typeof window !== 'undefined' &&
