@@ -19,9 +19,6 @@ const ZodiacDetail = ({ signDetail, onClose }) => {
 
   return (
     <div className={style.zodiacDetail}>
-      {/* <button className="button" onClick={onClose}>
-        {language === 'ru' ? 'Назад' : 'Back'}
-      </button> */}
       <h2>{signDetail.sign}</h2>
       <p>{signDetail.horoscope}</p>
     </div>

@@ -41,22 +41,16 @@ const TelegramInit = () => {
   useEffect(() => {
     const initializeTelegramSDK = async () => {
       try {
-        console.log('Инициализация окружения Telegram');
         const [miniApp] = initMiniApp();
         await miniApp.ready();
-        console.log('language in state before the initialization: ', language);
 
         const initData = initInitData();
-        console.log('initData', initData);
         const newLanguage = initData.user.languageCode;
-        console.log('newLanguage: ', newLanguage);
         dispatch(setLanguage(newLanguage));
-        console.log('language in state after the initialization: ', language);
 
-        // Инициализация главной кнопки
+        // mainButton
         const [mainButton] = initMainButton();
         mainButton.setParams({
-          backgroundColor: '#2e1a47',
           text: language === 'ru' ? 'Поделиться гороскопом' : 'Share Horoscope',
           isVisible: true,
           isEnabled: isShareButtonEnabled,
@@ -83,18 +77,14 @@ const TelegramInit = () => {
             ? 'Узнай свой гороскоп на сегодня в боте'
             : 'Check your horoscope for today by the bot'
         } ${botLink}`;
-
               utils.shareURL(message);
-              console.log('Окно выбора чата открыто для отправки сообщения.');
-            } else {
-              console.log('Гороскоп не выбран или не загружен.');
             }
           } catch (error) {
             console.error('Ошибка при открытии окна выбора чата:', error);
           }
         });
 
-        // Инициализация кнопки "Назад"
+        // backButton
         const [backButton] = initBackButton();
         if (selectedSign) {
           backButton.show();
@@ -152,11 +142,8 @@ const TelegramInit = () => {
           version: '7.2',
           platform: 'tdesktop',
         });
-
-        console.log('Mock Telegram environment initialized');
       }
     };
-
     initializeTelegramSDK();
 
     const updateShareButtonState = () => {

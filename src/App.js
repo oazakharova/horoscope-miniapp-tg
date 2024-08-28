@@ -26,7 +26,6 @@ const App = ({ selectedSign, setSelectedSign }) => {
   const { setIsShareButtonEnabled } = useContext(ShareButtonContext);
 
   useEffect(() => {
-    // Обновляем состояние кнопки при выборе знака
     if (selectedSign) {
       localStorage.setItem(
         'horoscopeData',
