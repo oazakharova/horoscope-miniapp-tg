@@ -58,7 +58,6 @@ const TelegramInit = () => {
           isVisible: true,
           isEnabled: isShareButtonEnabled,
         });
-        //mainButton.setBackgroundColor('#2e1a47');
         mainButton.show();
 
         const utils = initUtils();
@@ -103,13 +102,6 @@ const TelegramInit = () => {
         } else {
           backButton.hide();
         }
-
-        // backButton.on('click', () => {
-        //   if (selectedSign) {
-        //     setSelectedSign(null);
-        //     backButton.hide();
-        //   }
-        // });
       } catch (error) {
         console.error('Ошибка при инициализации Telegram:', error);
 

@@ -1,22 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const getDefaultLanguage = () => {
-  if (
-    typeof window !== 'undefined' &&
-    window.Telegram &&
-    window.Telegram.WebApp &&
-    window.Telegram.WebApp.initDataUnsafe
-  ) {
-    const language = window.Telegram.WebApp.initDataUnsafe.language;
-    if (language === 'ru') {
-      return 'ru';
-    }
-  }
-  return 'en';
-};
-
 const initialState = {
-  language: getDefaultLanguage(),
+  language: 'en',
 };
 
 const languageSlice = createSlice({
