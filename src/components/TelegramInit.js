@@ -173,7 +173,7 @@ const TelegramInit = () => {
 
   return (
     <ShareButtonContext.Provider value={{ setIsShareButtonEnabled }}>
-      <App />
+      <App selectedSign={selectedSign} setSelectedSign={setSelectedSign} />
     </ShareButtonContext.Provider>
   );
 };
